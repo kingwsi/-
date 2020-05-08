@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>giao</title>
+  </head>
+  <body>
+    <canvas id="myCanvas" width="120" height="100">
+      您的浏览器不支持 HTML5 canvas 标签。
+    </canvas>
+
+    <canvas
+      id="c2"
+      width="500"
+      height="500"
+      style="border: 1px solid black;"
+    ></canvas>
+    <div
+      onclick="giao()"
+      style="
+        width: 80px;
+        height: 30px;
+        border: 1px solid #333;
+        position: absolute;
+        top: 10px;
+        background-color: #cbcccc;
+      "
+    >
+      giao
+    </div>
+    <script>
+      giao();
+      function giao() {
+        var c = document.getElementById("myCanvas");
+        var ctx = c.getContext("2d");
+        var boxWidth = 120;
+        var boxHeight = 100;
+        ctx.clearRect(0, 0, 120, 100);
+        ctx.fillStyle = "#FFF";
+        //   ctx.beginPath();
+        //     ctx.strokeStyle = '#333';
+        //     ctx.moveTo(0, 10);
+        //     ctx.lineWidth=1;
+        //     ctx.lineTo(100, 10);
+        //     ctx.stroke();
+        for (let index = 1; index < boxWidth; index++) {
+          var r = Math.floor(Math.random() * 256);
+          var g = Math.floor(Math.random() * 256);
+          var b = Math.floor(Math.random() * 256);
+          let op = 0.1;
+          if (index > boxWidth-10) {
+            op = (boxWidth - index) / 100;
+          }
+          var color = "rgba(" + r + "," + g + "," + b + "," + op + ")";
+          let width = Math.floor(Math.random() * 30);
+          ctx.beginPath();
+          ctx.strokeStyle = color;
+          ctx.moveTo(index, 0);
+          ctx.lineWidth = width;
+          ctx.lineTo(index, 100);
+          ctx.stroke();
+        }
+        for (let index = 10; index < 40; index++) {
+          var r = Math.floor(Math.random() * 256);
+          var g = Math.floor(Math.random() * 256);
+          var b = Math.floor(Math.random() * 256);
+          let op = 0.1;
+          if (index > 30) {
+            op = (40 - index) / 100;
+          }
+          var color = "rgba(" + r + "," + g + "," + b + "," + op + ")";
+          let width = Math.floor(Math.random() * 30);
+          ctx.beginPath();
+          ctx.strokeStyle = color;
+          ctx.moveTo(0, index);
+          ctx.lineWidth = width;
+          ctx.lineTo(150, index);
+          ctx.stroke();
+        }
+        var c2 = document.getElementById("c2");
+        var ctx2 = c2.getContext("2d");
+        ctx2.clearRect(0, 0, 500, 500);
+        var pat = ctx2.createPattern(c, "repeat");
+        ctx2.rect(0, 0, 500, 500);
+        ctx2.fillStyle = pat;
+        ctx2.fill();
+      }
+    </script>
+  </body>
+</html>
